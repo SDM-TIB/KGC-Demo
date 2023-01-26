@@ -1,0 +1,179 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rev: <http://purl.org/stuff/rev#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix covid-19: <http://research.tib.eu/covid-19/vocab/> .
+
+<Relation>
+	a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/pub/relations.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{cord_uid}_HAS_{subject_cui}_{predicate}_{object_cui}";
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:relation_isRelatedTo_publication;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{cord_uid}"
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:relation_hasSubject_annotation;
+		rr:objectMap [ 
+			rr:parentTriplesMap <SemanticSubjectAnnotation> 	
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:relation_hasObject_annotation;
+		rr:objectMap [ 
+			rr:parentTriplesMap <SemanticObjectAnnotation> 	
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:relation_hasSubjectGene_annotation;
+		rr:objectMap [ 
+			rr:parentTriplesMap <GeneSubjectAnnotation> 	
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:relation_hasObjectGene_annotation;
+		rr:objectMap [ 
+			rr:parentTriplesMap <GeneObjectAnnotation> 	
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:type;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{predicate}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:relation_hasSubject_confidence;
+		rr:objectMap [
+			rml:reference "subject_score";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:negation;
+		rr:objectMap [
+			rml:reference "negation";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:relation_hasObject_confidence;
+		rr:objectMap [
+			rml:reference "object_score";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/Semrep"
+		]
+	].	
+
+<SemanticSubjectAnnotation>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/pub/relations.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{subject_cui}_istype_{subject_sem_type}";
+		rr:class covid-19:SemanticAnnotation
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasSemanticType;
+		rr:objectMap [ 
+			rml:reference "subject_sem_type";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasCUIAnnotation;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{subject_cui}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/Semrep";
+		]
+	].
+
+<GeneSubjectAnnotation>
+	a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/pub/relations.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{subject_geneid}";
+		rr:class covid-19:Gene
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasGeneLabel;
+		rr:objectMap [ 
+			rml:reference "subject_gene_name";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/EntrezGene";
+		]
+	].
+
+<SemanticObjectAnnotation>
+	a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/pub/relations.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{object_cui}_istype_{object_sem_type}";
+		rr:class covid-19:SemanticAnnotation
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasSemanticType;
+		rr:objectMap [ 
+			rml:reference "object_sem_type"; 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasCUIAnnotation;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{object_cui}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/Semrep";
+		]
+	].
+
+<GeneObjectAnnotation>
+	a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/pub/relations.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{object_geneid}";
+		rr:class covid-19:Gene
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasGeneLabel;
+		rr:objectMap [ 
+			rml:reference "object_gene_name";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/EntrezGene";
+		]
+	].

@@ -1,0 +1,147 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix fnml: <http://semweb.mmlab.be/ns/fnml#> .
+@prefix fno: <https://w3id.org/function/ontology#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix covid-19: <http://research.tib.eu/covid-19/vocab/> .
+@base <http://research.tib.eu/covid-19/vocab/> .
+
+<AnnotationDefinitionCovID-19>
+a rr:TriplesMap;
+  rml:logicalSource [ rml:source "/data/annotation/CUI_definitions.csv";
+                        rml:referenceFormulation ql:CSV 
+                        ];
+  rr:subjectMap [
+    rr:template "http://research.tib.eu/covid-19/entity/{CUI}_{source}";
+    rr:class covid-19:AnnotationDefinition;
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:hasCUIAnnotation;
+    rr:objectMap [
+      rr:template "http://research.tib.eu/covid-19/entity/{CUI}"
+    ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:definition;
+    rr:objectMap [
+      rml:reference "definition"
+    ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate prov:hasGeneratedBy;
+    rr:objectMap [
+      rr:template "http://research.tib.eu/covid-19/SourceName/{source}"
+    ]
+  ].
+
+<CUITypeCovID-19>
+a rr:TriplesMap;
+  rml:logicalSource [ rml:source "/data/annotation/CUI_types.csv";
+                        rml:referenceFormulation ql:CSV 
+                        ];
+  rr:subjectMap [
+    rr:template "http://research.tib.eu/covid-19/entity/{CUI}_{TypeId}";
+    rr:class covid-19:AnnotationType;
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:hasCUIAnnotation;
+    rr:objectMap [
+      rr:template "http://research.tib.eu/covid-19/entity/{CUI}"
+    ]
+  ]; 
+  rr:predicateObjectMap [
+    rr:predicate covid-19:hasType;
+    rr:objectMap [
+      rr:template "http://research.tib.eu/covid-19/entity/{TypeId}"
+    ]
+  ].
+
+<SemanticTypesCovID-19>
+a rr:TriplesMap;
+  rml:logicalSource [ rml:source "/data/annotation/Semantic_types.csv";
+                        rml:referenceFormulation ql:CSV 
+                        ];
+  rr:subjectMap [
+    rr:template "http://research.tib.eu/covid-19/entity/{Id}";
+    rr:class covid-19:SemanticType;
+  ]; 
+  rr:predicateObjectMap [
+    rr:predicate covid-19:semanticTypeLabel;
+    rr:objectMap [
+      rml:reference "Label"
+    ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:definition;
+    rr:objectMap [
+      rml:reference "definition"
+    ]
+  ].
+
+ <TypeGroupCovID-19>
+a rr:TriplesMap;
+  rml:logicalSource [ rml:source "/data/annotation/CUI_types.csv";
+                        rml:referenceFormulation ql:CSV 
+                        ];
+  rr:subjectMap [
+    rr:template "http://research.tib.eu/covid-19/entity/{TypeId}_{CUI_Group}";
+    rr:class covid-19:SemanticTypeGroup;
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:hasType;
+    rr:objectMap [
+      rr:template "http://research.tib.eu/covid-19/entity/{TypeId}"
+    ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:typeGroup;
+    rr:objectMap [
+      rml:reference "CUI_Group"
+    ]
+  ].
+   
+
+<AnnotationCUICovID-19>
+a rr:TriplesMap;
+  rml:logicalSource [ rml:source "/data/annotation/OneLabel.csv";
+                        rml:referenceFormulation ql:CSV 
+                        ];
+  rr:subjectMap [
+    rr:template "http://research.tib.eu/covid-19/entity/{CUI}";
+    rr:class covid-19:Annotation;
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:annotationFrequency;
+    rr:objectMap [
+      rml:reference "freq";
+      rr:datatype xsd:int
+    ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:annLabel;
+    rr:objectMap [
+      rml:reference "Label"
+    ]
+  ].
+
+<AnnotationCUICovID-19_CUI>
+a rr:TriplesMap;
+  rml:logicalSource [ rml:source "/data/annotation/OneLabel.csv";
+                        rml:referenceFormulation ql:CSV 
+                        ];
+  rr:subjectMap [
+    rr:template "http://research.tib.eu/covid-19/entity/{Label}";
+  ];
+  rr:predicateObjectMap [
+    rr:predicate covid-19:hasCUIAnnotation;
+    rr:objectMap [
+      rr:template "http://research.tib.eu/covid-19/entity/{CUI}"
+    ]
+  ].

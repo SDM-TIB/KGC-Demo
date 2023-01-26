@@ -1,0 +1,64 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rev: <http://purl.org/stuff/rev#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix covid-19: <http://research.tib.eu/covid-19/vocab/> .
+
+<DrugToxicityInteraction>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/drug/drugs_toxicities_processed.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{drug_id}_hasToxicity_{toxicity_Label}";
+		rr:class covid-19:DrugToxicityInteraction
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasDrug;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/entity/{drug_id}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/DrugBank"
+		]
+	].	
+
+<Drug_DrugToxicityInteraction>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/drug/drugs_toxicities_processed.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{drug_id}";
+		rr:class covid-19:Drug
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:drug_isRelatedTo_dse;
+		rr:objectMap [
+			rr:parentTriplesMap <DrugToxicityInteraction>
+		]
+	].
+
+<Phenotype_DrugToxicityInteraction>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/drug/drugs_toxicities_processed.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{toxicity_Label}";
+		rr:class covid-19:Phenotype
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:sideEffect_isRelatedTo_dse;
+		rr:objectMap [
+			rr:parentTriplesMap <DrugToxicityInteraction>
+		]
+	].

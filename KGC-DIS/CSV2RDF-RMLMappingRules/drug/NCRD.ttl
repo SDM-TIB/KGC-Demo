@@ -1,0 +1,39 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix covid-19: <http://research.tib.eu/covid-19/vocab/> .
+
+<DrugDrugInteraction_NCRD>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/drug/NCRD.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{Drug1}_interactsWith_{Drug2}";
+		rr:class covid-19:DrugDrugInteraction,
+			    covid-19:DDI-NCRD;
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:affects;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{Drug1}"; 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:isAffected;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{Drug2}"; 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hadPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/DrugBank/not_metabolized_by_the_same_CYP_enzyme"
+		]
+	].

@@ -1,0 +1,105 @@
+version: "3.3"
+services:
+  sdmrdfizer:
+    image: sdmtib/sdmrdfizer:4.3.6
+    hostname: sdmrdfizer 
+    container_name: sdmrdfizer
+    domainname: k4covid
+    volumes:
+      - ./data:/data
+      - ./rdf:/data/rdf-dump
+      - ../KGC-DIS/SDM-RDFizer-Configs:/data/configs
+      - ../KGC-DIS/CSV2RDF-RMLMappingRules:/data/mappings
+      - ./scripts:/data/scripts
+      - ../KGC-DIS:/data/ttl
+    networks:
+      - k4covid
+    depends_on:
+      - covid19kg
+    environment:
+      - SPARQL_ENDPOINT_IP=covid19kg
+      - SPARQL_ENDPOINT_USER=dba
+      - SPARQL_ENDPOINT_PASSWD=dba
+      - SPARQL_ENDPOINT_PORT=1111
+      - SPARQL_ENDPOINT_GRAPH=http://research.tib.eu/covid-19
+      - RDF_DUMP_FOLDER_PATH=/data/rdf-dump/
+      - TTL_DUMP_FOLDER_PATH=/data/ttl/
+      - SPARQL_MAPPINGS_ENDPOINT_IP=covid19kg_mappings
+      
+
+  covid19kg:
+    image: kemele/virtuoso:6-stable
+    hostname: covid19kg
+    container_name: covid19kg
+    domainname: k4covid
+    volumes:
+      - ./rdf-dump:/data
+      - ./rdf:/data/rdf-dump
+      - ../KGC-DIS:/data/ttl
+    ports:
+      - "8891:8890"
+    networks:
+      - k4covid
+      
+  covid19kg_mappings:
+    image: kemele/virtuoso:6-stable
+    hostname: covid19kg_mappings
+    container_name: covid19kg_mappings
+    domainname: k4covid
+    volumes:
+      - ./rdf-dump-mappings:/data
+      - ../KGC-DIS:/data/ttl
+    ports:
+      - "8892:8890"
+    networks:
+      - k4covid
+      
+  covid19_exp_api:
+    image: sdmtib/covid19_exploration:2.0
+    hostname: covid19_exploration_api
+    container_name: covid19_exploration_api
+    domainname: k4covid
+    ports:
+      - "18873:5000"
+    environment:
+      - ENDPOINT=http://node3.research.tib.eu:8891/sparql
+    networks:
+      - k4covid         
+  dereferencing:
+    image: asanchez75/pubby:v0.3.3
+    hostname: pubby
+    container_name: pubby
+    domainname: k4covid
+    ports:
+        - "8080:8080"
+    networks:
+      - k4covid
+    environment:
+      SPARQL_ENDPOINT: "https://labs.tib.eu/sdm/covid19kg/sparql"
+      PROJECT_HOMEPAGE_URL: "http://research.tib.eu/covid-19/"
+      PROJECT_NAME: "Knowledge4COVID-19"
+      DEFAULT_RESOURCE: "http://research.tib.eu/covid-19/entity/C0168273"
+      DEFAULT_NAMED_GRAPH: "http://research.tib.eu/covid-19"
+      COMMON_URI_PREFIX: "http://research.tib.eu/covid-19/"
+      WEB_RESOURCE_PREFIX: ""
+      PUBBY_ROOT_URL: "https://research.tib.eu/covid-19/"
+    restart: always
+    tty: true
+    
+  detrusty:
+    image: sdmtib/detrusty:0.4.4
+    hostname: detrusty
+    container_name: detrusty
+    domainname: k4covid
+    volumes:
+      - ./DeTrusty/Config/:/DeTrusty/Config/
+    ports:
+      - "5000:5000"
+    networks:
+      - k4covid
+    depends_on:
+      - covid19kg
+
+networks:
+  k4covid:
+    external: false

@@ -1,0 +1,138 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rev: <http://purl.org/stuff/rev#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix covid-19: <http://research.tib.eu/covid-19/vocab/> .
+
+<#Publication>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/pub/metadata.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{cord_uid}";
+		rr:class covid-19:Publication
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:sha_id;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/entity/{sha}" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:source;
+		rr:objectMap [ 
+			rml:reference "source_x" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate dct:title;
+		rr:objectMap [ 
+			rml:reference "title" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate dct:creator;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{authors}" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate bibo:doi;
+		rr:objectMap [ 
+			rml:reference "doi"
+		]
+	];
+        rr:predicateObjectMap [
+		rr:predicate covid-19:doi;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{doi}"
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:pmcid;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{pmcid}" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate bibo:pmid;
+		rr:objectMap [ 
+			rml:reference "pubmed_id"
+		]
+	];
+   	rr:predicateObjectMap [
+		rr:predicate covid-19:pmid;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{pubmed_id}"
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:license;
+		rr:objectMap [ 
+			rml:reference "license" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate dct:abstract;
+		rr:objectMap [ 
+			rml:reference "abstract" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:year;
+		rr:objectMap [ 
+			rml:reference "publish_time"
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:journal;
+		rr:objectMap [ 
+			rml:reference "journal"
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:who_covidence_id;
+		rr:objectMap [ 
+			rml:reference "who_covidence_id" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:arxiv_id;
+		rr:objectMap [ 
+			rml:reference "arxiv_id" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:pdf_json_files;
+		rr:objectMap [ 
+			rml:reference "pdf_json_files" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:pmc_json_files;
+		rr:objectMap [ 
+			rml:reference "pmc_json_files" 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:publication_isRelatedTo_Disease;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/COVID-19"
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:externalLink;
+		rr:objectMap [ 
+			rml:reference "url"; 
+            		rr:termType  rr:IRI 
+		]
+	].	
+

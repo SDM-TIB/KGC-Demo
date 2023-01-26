@@ -1,0 +1,73 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rev: <http://purl.org/stuff/rev#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix covid-19: <http://research.tib.eu/covid-19/vocab/> .
+
+<ConceptAnnotation>
+     a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/pub/entities.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{cord_uid}_hasAnnotation_{cuid}";
+		rr:class covid-19:ConceptAnnotation
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:annotates;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{cord_uid}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasSemanticAnnotation;
+		rr:objectMap [
+			rr:parentTriplesMap <SemanticObjectAnnotation> 	
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasConfidenceScore;
+		rr:objectMap [
+			rml:reference "score";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/Semrep";
+		]
+	].
+
+<SemanticObjectAnnotation>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/pub/entities.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{cuid}_istype_{sem_types}";
+		rr:class covid-19:SemanticAnnotation
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasSemanticType;
+		rr:objectMap [ 
+			rml:reference "sem_types";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:hasCUIAnnotation;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{cuid}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/Semrep";
+		]
+	].
+

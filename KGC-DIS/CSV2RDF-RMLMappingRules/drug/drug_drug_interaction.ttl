@@ -1,0 +1,145 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rev: <http://purl.org/stuff/rev#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix covid-19: <http://research.tib.eu/covid-19/vocab/> .
+
+<#DrugDrugInteractionNS>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/drug/Unsymmetric_DDI_corpus.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{CUI_1}_Pharmacokynetic_{CUI_2}";
+		rr:class covid-19:PharmacokyneticDrugDrugInteraction,
+		covid-19:DrugDrugInteraction;
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:precipitantDrug;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/entity/{CUI_1}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:objectDrug;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/entity/{CUI_2}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:precipitant_hasDrugBankID;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{PrecipitantDrugID}"; 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:object_hasDrugBankID;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{ObjectDrugID}"; 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:interaction;
+		rr:objectMap [ 
+			rml:reference "Interaction";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:effect;
+		rr:objectMap [
+  			rr:template "http://research.tib.eu/covid-19/entity/{CUI_AdverseEvent}";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:impact;
+		rr:objectMap [
+			rml:reference "Impact";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/UMLS";
+		]
+	].
+
+<#DrugDrugInteractionS>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/drug/Symmetric_DDI_corpus.csv";
+	rml:referenceFormulation ql:CSV 
+	];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{CUI_1}_interactsWith_{CUI_2}";
+		rr:class covid-19:DrugDrugInteraction
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:precipitantDrug;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/entity/{CUI_1}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:objectDrug;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/entity/{CUI_2}";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:precipitant_hasDrugBankID;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{PrecipitantDrugID}"; 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:object_hasDrugBankID;
+		rr:objectMap [ 
+			rr:template "http://research.tib.eu/covid-19/entity/{ObjectDrugID}"; 
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:interaction;
+		rr:objectMap [ 
+			rml:reference "Interaction";
+		]
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:effect;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/entity/{CUI_AdverseEvent}";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate covid-19:impact;
+		rr:objectMap [
+			rml:reference "Impact";
+		];
+	];
+	rr:predicateObjectMap [
+		rr:predicate prov:hasPrimarySource;
+		rr:objectMap [
+			rr:template "http://research.tib.eu/covid-19/SourceName/UMLS";
+		]
+	].
+
+<#Symmetric_DDI>
+a rr:TriplesMap;
+	rml:logicalSource [ rml:source "/data/drug/Symmetric_DDI_corpus.csv";
+						rml:referenceFormulation ql:CSV 
+						];
+	rr:subjectMap [
+		rr:template "http://research.tib.eu/covid-19/entity/{CUI_1}_hasPharmacodynamic_{CUI_2}";
+		rr:class covid-19:PharmacodynamicDrugDrugInteraction,
+		covid-19:DrugDrugInteraction;
+	];
+	rr:predicateObjectMap [
+		rr:predicate rdfs:subClassOf;
+		rr:objectMap [
+			rr:parentTriplesMap <#DrugDrugInteractionS>;
+		];
+	].
