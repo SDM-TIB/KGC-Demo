@@ -86,5 +86,5 @@ As an alternative to using Virtuoso directly (see above), you can use `DeTrusty`
 `DeTrusty` is a query engine enabling access to SPARQL endpoints.
 Using `DeTrusty` you can also retrieve data from other sources, and, hence, execute a federated query.
 
-6. Open [http://localhost:5000/sparql](http://localhost:5000/sparql) in your browser to get access to the YASGUI connected to `DeTrusty`.
+6. Open [http://localhost:5002/sparql](http://localhost:5002/sparql) in your browser to get access to the YASGUI connected to `DeTrusty`.
 

@@ -94,7 +94,7 @@ services:
     volumes:
       - ./DeTrusty/Config/:/DeTrusty/Config/
     ports:
-      - "5000:5000"
+      - "5002:5000"
     networks:
       - k4covid
     depends_on:
