@@ -26,7 +26,6 @@ services:
       - TTL_DUMP_FOLDER_PATH=/data/ttl/
       - SPARQL_MAPPINGS_ENDPOINT_IP=covid19kg_mappings
       
-
   covid19kg:
     image: kemele/virtuoso:6-stable
     hostname: covid19kg
@@ -96,6 +95,24 @@ services:
       - ./DeTrusty/Config/:/DeTrusty/Config/
     ports:
       - "5000:5000"
+    networks:
+      - k4covid
+    depends_on:
+      - covid19kg
+
+  travshacl:
+    image: sdmtib/travshacl:1.1.2
+    hostname: covid19_travshacl
+    container_name: covid19_travshacl
+    domainname: k4covid
+    volumes:
+      - ./Trav-SHACL:/constraints
+      - ./outputs:/output/k4covid_validation
+    ports:
+      - "5001:5000"
+    environment:
+      - SCHEMA_PATH=/constraints
+      - ENDPOINT=http://covid19kg:8890/sparql
     networks:
       - k4covid
     depends_on:

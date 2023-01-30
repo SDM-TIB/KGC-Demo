@@ -1,0 +1,19 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+<http://research.tib.eu/covid-19/shapes/DrugSideEffectInteraction> a sh:NodeShape;
+    sh:targetClass <http://research.tib.eu/covid-19/vocab/DrugSideEffectInteraction> ;
+    sh:property [
+        sh:path <http://research.tib.eu/covid-19/vocab/hasCUIAnnotation> ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path <http://www.w3.org/ns/prov#hasPrimarySource> ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path <http://research.tib.eu/covid-19/vocab/dse_AvgFrequency> ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] .

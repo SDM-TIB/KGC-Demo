@@ -1,0 +1,11 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+<http://research.tib.eu/covid-19/shapes/CovidTreatment> a sh:NodeShape;
+    sh:targetClass <http://research.tib.eu/covid-19/vocab/CovidTreatment> ;
+    sh:property [
+        sh:path <http://research.tib.eu/covid-19/vocab/hasCovidDrug>;
+        sh:qualifiedValueShape [
+            sh:node <http://research.tib.eu/covid-19/shapes/CovidDrug>
+        ] ;
+        sh:qualifiedMinCount 1
+    ] .

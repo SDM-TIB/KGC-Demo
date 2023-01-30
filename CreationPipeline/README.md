@@ -63,7 +63,22 @@ Before running this, make sure you update the environmental variable in the `doc
 
 
 
-4. Open [http://localhost:8891/sparql](http://localhost:8891/sparql) on your browser and you will get access to the created Knowledge Graph
+4. Open [http://localhost:8891/sparql](http://localhost:8891/sparql) in your browser and you will get access to the created Knowledge Graph
+
+## Validating the Knowledge Graph using Trav-SHACL
+The generated Knowledge Graph can be validated against integrity constraints defined in SHACL by using `Trav-SHACL`.
+The example constraints are in the directory `Trav-SHACL`.
+You can either run the command
+
+```bash
+
+docker exec -it covid19_travshacl bash -c "python3 main.py -d /constraints http://covid19kg:8890/sparql /output/k4covid_validation/ DFS --heuristics TARGET IN BIG --selective --outputs"
+
+```
+
+you will find the result of the validation in the `output` directory or
+
+5. Open [http://localhost:5001/validate](http://localhost:5001/validate) in your browser to access the interface of `Trav-SHACL`.
 
 ## Querying the Knowledge Graph using DeTrusty
 
@@ -71,5 +86,5 @@ As an alternative to using Virtuoso directly (see above), you can use `DeTrusty`
 `DeTrusty` is a query engine enabling access to SPARQL endpoints.
 Using `DeTrusty` you can also retrieve data from other sources, and, hence, execute a federated query.
 
-5. Open [http://localhost:5000/sparql](http://localhost:5000/sparql) in your browser to get access to the YASGUI connected to `DeTrusty`.
+6. Open [http://localhost:5000/sparql](http://localhost:5000/sparql) in your browser to get access to the YASGUI connected to `DeTrusty`.
 
