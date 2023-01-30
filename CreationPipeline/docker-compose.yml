@@ -65,6 +65,7 @@ services:
       - ENDPOINT=http://node3.research.tib.eu:8891/sparql
     networks:
       - k4covid         
+
   dereferencing:
     image: asanchez75/pubby:v0.3.3
     hostname: pubby
