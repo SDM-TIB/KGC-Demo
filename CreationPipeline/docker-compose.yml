@@ -24,7 +24,6 @@ services:
       - SPARQL_ENDPOINT_GRAPH=http://research.tib.eu/covid-19
       - RDF_DUMP_FOLDER_PATH=/data/rdf-dump/
       - TTL_DUMP_FOLDER_PATH=/data/ttl/
-      - SPARQL_MAPPINGS_ENDPOINT_IP=covid19kg_mappings
       
   covid19kg:
     image: kemele/virtuoso:6-stable
@@ -40,30 +39,7 @@ services:
     networks:
       - k4covid
       
-  covid19kg_mappings:
-    image: kemele/virtuoso:6-stable
-    hostname: covid19kg_mappings
-    container_name: covid19kg_mappings
-    domainname: k4covid
-    volumes:
-      - ./rdf-dump-mappings:/data
-      - ../KGC-DIS:/data/ttl
-    ports:
-      - "8892:8890"
-    networks:
-      - k4covid
-      
-  covid19_exp_api:
-    image: sdmtib/covid19_exploration:2.0
-    hostname: covid19_exploration_api
-    container_name: covid19_exploration_api
-    domainname: k4covid
-    ports:
-      - "18873:5000"
-    environment:
-      - ENDPOINT=http://node3.research.tib.eu:8891/sparql
-    networks:
-      - k4covid         
+         
 
   dereferencing:
     image: asanchez75/pubby:v0.3.3
