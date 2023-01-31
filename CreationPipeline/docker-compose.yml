@@ -2,8 +2,8 @@ version: "3.3"
 services:
   sdmrdfizer:
     image: sdmtib/sdmrdfizer:4.3.6
-    hostname: sdmrdfizer 
-    container_name: sdmrdfizer
+    hostname: covid19_sdmrdfizer 
+    container_name: covid19_sdmrdfizer
     domainname: k4covid
     volumes:
       - ./data:/data
@@ -67,8 +67,8 @@ services:
 
   dereferencing:
     image: asanchez75/pubby:v0.3.3
-    hostname: pubby
-    container_name: pubby
+    hostname: covid19_pubby
+    container_name: covid19_pubby
     domainname: k4covid
     ports:
         - "8080:8080"
@@ -88,8 +88,8 @@ services:
     
   detrusty:
     image: sdmtib/detrusty:0.10.0
-    hostname: detrusty
-    container_name: detrusty
+    hostname: covid19_detrusty
+    container_name: covid19_detrusty
     domainname: k4covid
     volumes:
       - ./DeTrusty/Config/:/DeTrusty/Config/
