@@ -92,7 +92,9 @@ services:
     container_name: covid19_detrusty
     domainname: k4covid
     volumes:
-      - ./DeTrusty/Config/:/DeTrusty/Config/
+      - ./DeTrusty/Config:/DeTrusty/Config
+      - ./DeTrusty/create_source_description.py:/DeTrusty/create_source_description.py
+      - ../KGC-DIS/CSV2RDF-RMLMappingRules:/data/mappings
     ports:
       - "5002:5000"
     networks:

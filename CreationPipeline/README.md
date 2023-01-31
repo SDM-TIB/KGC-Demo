@@ -26,6 +26,8 @@ This command will download and start the three docker containers used in our pip
 1) SDM-RDFizer
 2) SPARQL Endpoint
 3) Dereferencing Interface (Pubby)
+4) Federated Query Engine (DeTrusty)
+5) SHACL validator (Trav-SHACL)
 
 Once the docker containers are up and running, execute the following command to fix the URLs of Pubby (the dereferencing tool)
 ```bash
@@ -82,9 +84,16 @@ you will find the result of the validation in the `output` directory or
 
 ## Querying the Knowledge Graph using DeTrusty
 
-As an alternative to using Virtuoso directly (see above), you can use `DeTrusty` to query the Knowlede Graph.
+As an alternative to using Virtuoso directly (see above), you can use `DeTrusty` to query the Knowledge Graph.
 `DeTrusty` is a query engine enabling access to SPARQL endpoints.
 Using `DeTrusty` you can also retrieve data from other sources, and, hence, execute a federated query.
 
 6. Open [http://localhost:5002/sparql](http://localhost:5002/sparql) in your browser to get access to the YASGUI connected to `DeTrusty`.
 
+We provide the source description needed for `DeTrusty`. However, they can be recomputed using the following command:
+
+```bash
+
+docker exec -it covid19_detrusty bash -c "python3 /DeTrusty/create_source_description.py && /DeTrusty/Scripts/restart_workers.sh"
+
+```
