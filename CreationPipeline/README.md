@@ -31,7 +31,7 @@ This command will download and start the three docker containers used in our pip
 
 Once the docker containers are up and running, execute the following command to fix the URLs of Pubby (the dereferencing tool)
 ```bash
-docker exec -it pubby cp -r /usr/local/tomcat/webapps/pubby/. /usr/local/tomcat/webapps/ROOT/
+docker exec -it covid19_pubby cp -r /usr/local/tomcat/webapps/pubby/. /usr/local/tomcat/webapps/ROOT/
 
 ```
 
@@ -43,7 +43,7 @@ The docker container created above using the docker-compose.yaml file will attac
 
 ```bash
 
-docker exec -it sdmrdfizer /data/scripts/run_rdfizier.sh
+docker exec -it covid19_sdmrdfizer /data/scripts/run_rdfizier.sh
 
 ```
 
@@ -57,7 +57,7 @@ To load the generated RDF dump in step 2, we will use a script included in `scri
 
 ```bash
 
-docker exec -it sdmrdfizer python3 /data/scripts/load_to_virtuoso.py
+docker exec -it covid19_sdmrdfizer python3 /data/scripts/load_to_virtuoso.py
 
 ```
 This script will also load the mappings and ontology data into the mappings and ontology SPARQL endpoint
