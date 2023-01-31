@@ -1,6 +1,6 @@
 # KGC-Demo
 
-# Pipeline Creations
+# Pipeline Creation
 
 This directory contains the instructions for running the KGC pipeline
 
