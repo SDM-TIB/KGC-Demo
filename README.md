@@ -1,5 +1,9 @@
 # KGC-Demo
 
+This demo demonstrates how to execute the Knowledge Graph Creation Pipeline (KGC) for the ([Knowledge4Covid](https://www.sciencedirect.com/science/article/pii/S1570826822000440)) usecase.
+A subset of the data used in the Knowledge4Covid paper is used for the demo.
+Pubby is configured with the reserved domain (https://research.tib.eu/covid-19).
+
 # Pipeline Creation
 
 This directory contains the instructions for running the KGC pipeline
