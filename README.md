@@ -16,7 +16,7 @@ This directory contains the instructions for running the KGC pipeline
 # Downloading the required data
 
 First we need to download the raw data that is going to be integrated into the created Knowledge Graph.
-The data can be downloaded using this ([link](XXXX))
+The data can be downloaded using this ([link](https://tib.eu/cloud/s/6HNEDLEdCdGztjz))
 
 After downloading the data, the (data) directory should be placed under CreationPipeline directory
 
