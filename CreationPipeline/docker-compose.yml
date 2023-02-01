@@ -79,7 +79,7 @@ services:
       - covid19kg
 
   travshacl:
-    image: sdmtib/travshacl:1.1.2
+    image: sdmtib/travshacl:1.2.0
     hostname: covid19_travshacl
     container_name: covid19_travshacl
     domainname: k4covid
